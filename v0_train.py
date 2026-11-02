@@ -5,11 +5,11 @@ import pandas as pd
 from sklearn.metrics import accuracy_score, classification_report, log_loss
 
 print("v0 train start")
-
-trainset = pd.read_csv('data/v0_train.csv', low_memory=False)
+# our dataset intentionally excludes num vechs in crash and collision mechanism.
+trainset = pd.read_csv('precrash\\data\\v0_train.csv', low_memory=False)
 X_train = trainset.drop(columns=['P_ISEV'])
 y_train = trainset[['P_ISEV']]
-testset = pd.read_csv('data/v0_eval.csv', low_memory=False)
+testset = pd.read_csv('precrash\\data\\v0_eval.csv', low_memory=False)
 X_test = testset.drop(columns=['P_ISEV'])
 y_test = testset[['P_ISEV']]
 

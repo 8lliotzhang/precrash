@@ -146,3 +146,15 @@ print("Index:", max_idx)
 print("Probability:", fatality_probs.max())
 # remember: in eval_dead, ++2 to the given idx for the matching row: idx starts at 0,  row 1 is header
 print("done :3")
+
+import os
+os.makedirs('outputs', exist_ok=True)
+
+pd.DataFrame({
+    'y_true': y_test.to_numpy(),
+    'p_fatal': p_fatal.to_numpy(),
+    'y_pred': y_pred_thresh,
+}, index=y_test.index).rename_axis('row').to_csv('outputs/catboost_preds.csv')
+
+pd.Series(bst.get_feature_importance(), index=X_fit.columns, name='importance') \
+    .to_csv('outputs/catboost_importance.csv')

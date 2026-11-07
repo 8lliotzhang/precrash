@@ -78,7 +78,7 @@ print(type(y_pred_proba))
 print(y_pred_proba.shape)
 print(y_pred_proba[:5])
 
-# Fatality probabilities for actual fatality cases (original row index preserved)
+# Fatality probabilities for actual fatality cases 
 fatality_probs = p_fatal[y_test == 2].rename("Fatality probability")
 
 print(fatality_probs.describe(percentiles=[.10, .25, .50, .75, .90, .95, .99]))
@@ -96,3 +96,12 @@ print("Probability:", fatality_probs.max())
 
 # remember: in eval_dead, ++2 to the given idx for the matching row: idx starts at 0, row 1 is header
 print("done :3")
+
+import os
+os.makedirs('outputs', exist_ok=True)
+
+pd.DataFrame({
+    'y_true': y_test.to_numpy(),
+    'p_fatal': p_fatal.to_numpy(),
+    'y_pred': y_pred_class,
+}, index=y_test.index).rename_axis('row').to_csv('outputs/logreg_preds.csv')

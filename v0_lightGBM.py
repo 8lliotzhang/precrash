@@ -98,3 +98,12 @@ print("Index:", fatality_probs.index[max_idx])
 print("Probability:", fatality_probs.iloc[max_idx])
 # remember: in eval_dead, ++2 to the given idx for the matching row: idx starts at 0,  row 1 is header 
 print("done :3")
+
+import os
+os.makedirs('outputs', exist_ok=True)
+
+pd.DataFrame({
+    'y_true': np.asarray(y_test).ravel(),
+    'p_fatal': np.asarray(p_fatal),
+    'y_pred': y_pred_class,
+}).rename_axis('row').to_csv('outputs/lgbm_preds.csv')

@@ -18,7 +18,7 @@ results = {name: pd.read_csv(path) for name, path in models.items() if os.path.e
 if not results:
     raise SystemExit("No prediction files found in outputs/. Run a model script first.")
 
-# ---------- Fatality PR and ROC curves, all models overlaid ----------
+# atality PR and ROC curves, all models overlaid 
 fig, axes = plt.subplots(1, 2, figsize=(13, 5))
 
 for name, df in results.items():
@@ -45,7 +45,7 @@ axes[1].legend()
 plt.tight_layout()
 plt.savefig('outputs/curves.png', dpi=150)
 
-# ---------- One confusion matrix per model ----------
+# One confusion matrix per model
 fig, axes = plt.subplots(1, len(results), figsize=(5 * len(results), 4.5), squeeze=False)
 for ax, (name, df) in zip(axes[0], results.items()):
     ConfusionMatrixDisplay.from_predictions(
@@ -57,7 +57,7 @@ for ax, (name, df) in zip(axes[0], results.items()):
 plt.tight_layout()
 plt.savefig('outputs/confusion.png', dpi=150)
 
-# ---------- CatBoost feature importance, if saved ----------
+# CatBoost feature importance
 if os.path.exists('outputs/catboost_importance.csv'):
     imp = pd.read_csv('outputs/catboost_importance.csv', index_col=0).squeeze('columns')
     plt.figure(figsize=(8, 6))
